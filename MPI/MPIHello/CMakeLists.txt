@@ -10,4 +10,5 @@ add_executable(MPIHello #main.c
         #MPI_IrecvIsend.c
         #Books/HiMPI.c
         #MPI_Scatter.c
-        Books/MPI_Scatterv.c)
+        #Books/MPI_Scatterv.c
+        Books/MPI_ScatterAndGather.c)
