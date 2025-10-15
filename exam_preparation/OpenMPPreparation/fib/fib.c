@@ -8,7 +8,7 @@ long fib(int n);
 #define N 40
 int main() {
     double start_time = omp_get_wtime();
-    long value = 0;
+    long long value = 0;
 #pragma omp parallel
     {
 #pragma omp single
@@ -18,6 +18,17 @@ int main() {
     }
     double end_time = omp_get_wtime();
     printf("fib(%d):%ld,time:%f",N,value,end_time - start_time);
+#pragma omp parallel
+    {
+        int i,j;
+#pragma omp single shared(i,j)
+        {
+#pragma omp task
+            {
+
+            }
+        }
+    }
     return 0;
 }
 

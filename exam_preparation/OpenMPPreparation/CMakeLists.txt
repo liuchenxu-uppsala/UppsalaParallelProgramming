@@ -8,7 +8,16 @@ find_package(OpenMP REQUIRED)
 add_executable(${PROJECT_NAME} #main.c
         #Case1.c
         #AtomicCriticalReduction.c
-        fib/fib.c)
+        #fib/fib.c
+        #exam/exam1.c
+        #exam/exam2.c
+        #exercise/exercise1.c
+        #exercise/exercise2.c
+        #exercise/exercise3.c
+        #exercise/exercise4.c
+        exercise/exercise4_2.c
+        exercise/exercise5.c
+)
 
 if(OpenMP_C_FOUND)
     message(STATUS "OpenMP found: ${OpenMP_C_FLAGS}")
