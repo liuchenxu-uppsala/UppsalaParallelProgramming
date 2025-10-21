@@ -11,5 +11,7 @@ add_executable(Again2 #main.c
         #ALock2.c
         #ALock3.c
         #CLHLock.c
-        CLHLock2.c)
+        #CLHLock2.c
+        MCSLock.c
+)
 target_link_libraries(Again2 m)
