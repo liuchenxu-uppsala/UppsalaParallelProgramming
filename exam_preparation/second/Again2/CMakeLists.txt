@@ -12,6 +12,8 @@ add_executable(Again2 #main.c
         #ALock3.c
         #CLHLock.c
         #CLHLock2.c
-        MCSLock.c
+        #MCSLock.c
+        #PthreadPi.c
+        PthreadMessage.c
 )
 target_link_libraries(Again2 m)
