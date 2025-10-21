@@ -6,5 +6,10 @@ set(CMAKE_C_STANDARD 11)
 add_executable(Again2 #main.c
         #TASLock.c
         #TTASLock.c
-        BackLock.c)
+        #BackLock.c
+        #ALock.c
+        #ALock2.c
+        #ALock3.c
+        #CLHLock.c
+        CLHLock2.c)
 target_link_libraries(Again2 m)

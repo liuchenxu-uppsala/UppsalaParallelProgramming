@@ -1,5 +1,5 @@
 //
-// Created by Chenx on 2025/10/20.
+// Created by Chenx on 2025/10/21.
 //
 #include <stdio.h>
 #include <stdbool.h>
@@ -9,60 +9,57 @@
 #include <time.h>
 #define CAPACITY 4
 #define MAX_NUMS 100
-int shared_value;
 pthread_t threads[CAPACITY];
+int shared_value = 0;
 int tids[CAPACITY];
+
 typedef struct {
     int tail;
     int flags[CAPACITY];
     pthread_key_t key;
-} a_lock;
-a_lock lock;
+} lock;
+
+lock a_lock;
 
 void init_lock() {
-    lock.tail = 0;
+    a_lock.tail = 0;
     for (int i = 0; i < CAPACITY; i++) {
-        lock.flags[i] = 0;
+        a_lock.flags[i] = 0;
     }
-    lock.flags[0] = 1;
-    pthread_key_create(&lock.key,NULL);
+    a_lock.flags[0] = 1;
+    pthread_key_create(&a_lock.key,NULL);
 }
 
 void set_slot(int index) {
-    int* slot = pthread_getspecific(lock.key);
+    int* slot = pthread_getspecific(a_lock.key);
     if (slot == NULL) {
-        slot = (int*)malloc(sizeof(int));
-        pthread_setspecific(lock.key,slot);
+        slot = (int*) malloc(sizeof(int));
+        pthread_setspecific(a_lock.key,slot);
     }
     *slot = index;
 }
 
 int get_slot() {
-    int* slot = pthread_getspecific(lock.key);
-    // if (slot == NULL) {
-    //     slot = (int*)malloc(sizeof(int));
-    //     pthread_setspecific(lock.key,slot);
-    //     *slot = 0;
-    // }
+    int* slot = pthread_getspecific(a_lock.key);
     return *slot;
 }
 
-void _a_lock() {
-    int index = __sync_fetch_and_add(&lock.tail,1);
-    set_slot(index);
-    while (lock.flags[index % CAPACITY] == 0){}
+void _lock() {
+    int my_index = __sync_fetch_and_add(&a_lock.tail,1);
+    set_slot(my_index % CAPACITY);
+    while (a_lock.flags[my_index % CAPACITY] == 0);
 }
 
 void _unlock() {
-    int index = get_slot();
-    lock.flags[index % CAPACITY] = 0;
-    lock.flags[(index + 1) % CAPACITY] = 1;
+    int slot = *(int*)pthread_getspecific(a_lock.key);
+    a_lock.flags[slot] = 0;
+    a_lock.flags[(slot + 1) % CAPACITY] = 1;
 }
 
-void* work(void* args) {
-    int tid = *(int*)args;
+void* work(void* arg) {
+    int tid = *(int*) arg;
     for (int i = 0; i < MAX_NUMS; i++) {
-        _a_lock();
+        _lock();
         shared_value++;
         printf("Thread:%d,shared_value:%d\n",tid,shared_value);
         _unlock();
