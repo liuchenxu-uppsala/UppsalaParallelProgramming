@@ -17,8 +17,11 @@ add_executable(Again2 #main.c
         #PthreadMessage.c
         #PthreadCustomerConsumer.c
         #PthreadProduceConsumerCondition.c
-        Pthread_barrier/PthreadBarrier.c
-        Pthread_barrier/PthreadBarrierMain.c
-        Pthread_barrier/PthreadBarrier.h
+        #Pthread_barrier/PthreadBarrier.c
+        #Pthread_barrier/PthreadBarrierMain.c
+        #Pthread_barrier/PthreadBarrier.h
+        ReadWriteLock/PthreadReadWriteLock.c
+        ReadWriteLock/PthreadReadWriteLock.h
+        ReadWriteLock/PthreadReadWriteLockMain.c
 )
 target_link_libraries(Again2 m)
