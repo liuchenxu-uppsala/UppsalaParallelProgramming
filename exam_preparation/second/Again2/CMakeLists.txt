@@ -24,8 +24,11 @@ add_executable(Again2 #main.c
         #ReadWriteLock/PthreadReadWriteLock.h
         #ReadWriteLock/PthreadReadWriteLockMain.c
         #OpenMp/OpenMpInit.c
-        OpenMp/OpenMpTest1.c
-        OpenMp/OpenMpTest2.c
+        #OpenMp/OpenMpTest1.c
+        #OpenMp/OpenMpTest2.c
+        #OpenMp/Fib.c
+        OpenMp/Recursion.c
+        OpenMp/OpenMpRecursion2.c
 )
 if(OpenMP_C_FOUND)
     message(STATUS "OpenMP found: ${OpenMP_C_FLAGS}")
